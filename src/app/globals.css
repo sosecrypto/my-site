@@ -1,26 +1,370 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* --- Dark mode: class-based for next-themes --- */
+@custom-variant dark (&:where(.dark, .dark *));
 
+/* --- Design Tokens --- */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-accent-cyan: var(--accent-cyan);
+  --color-accent-green: var(--accent-green);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-rose: var(--accent-rose);
+  --color-border: var(--border-color);
+
+  --font-sans: var(--font-pretendard);
+  --font-mono: var(--font-jetbrains);
+
+  --animate-blink: blink 1s step-end infinite;
+  --animate-pulse-glow: pulse-glow 2s ease-in-out infinite;
+  --animate-float: float 3s ease-in-out infinite;
+  --animate-scanline: scanline 8s linear infinite;
+  --animate-flicker: flicker 0.15s infinite;
+  --animate-glitch: glitch 2s infinite;
+  --animate-gradient-rotate: gradient-rotate 3s linear infinite;
+  --animate-boot-line: boot-line 0.3s ease-out forwards;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* --- CSS Variables: Light Mode (default) --- */
+:root {
+  --bg-primary: #f8fafc;
+  --bg-secondary: #ffffff;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --accent-cyan: #0891b2;
+  --accent-green: #16a34a;
+  --accent-amber: #d97706;
+  --accent-rose: #e11d48;
+  --border-color: #e2e8f0;
+  --glow-color: rgba(8, 145, 178, 0.3);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --navbar-bg: rgba(248, 250, 252, 0.8);
+}
+
+/* --- CSS Variables: Dark Mode --- */
+.dark {
+  --bg-primary: #0a0e14;
+  --bg-secondary: #1a1f2e;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --accent-cyan: #22d3ee;
+  --accent-green: #4ade80;
+  --accent-amber: #f59e0b;
+  --accent-rose: #f43f5e;
+  --border-color: #2d3748;
+  --glow-color: rgba(34, 211, 238, 0.3);
+  --card-bg: rgba(26, 31, 46, 0.8);
+  --navbar-bg: rgba(10, 14, 20, 0.8);
+}
+
+/* --- Base Styles --- */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-pretendard), system-ui, sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--accent-cyan);
+  color: var(--bg-primary);
+}
+
+/* --- Scrollbar --- */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-cyan);
+}
+
+/* --- Custom Cursor (desktop only) --- */
+@media (pointer: fine) {
+  .custom-cursor-active,
+  .custom-cursor-active * {
+    cursor: none !important;
+  }
+}
+
+/* --- CRT Scanlines Overlay --- */
+.crt-overlay {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.03) 2px,
+    rgba(0, 0, 0, 0.03) 4px
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.dark .crt-overlay {
+  opacity: 1;
+}
+
+/* --- CRT Flicker --- */
+.crt-flicker {
+  animation: var(--animate-flicker);
+}
+
+/* --- Glassmorphism --- */
+.glass {
+  background: var(--navbar-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* --- Noise Texture (subtle) --- */
+.noise-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.015;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+}
+
+.dark .noise-bg::after {
+  opacity: 0.03;
+}
+
+/* --- Glitch Text --- */
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+}
+
+.glitch:hover::before {
+  opacity: 0.8;
+  color: var(--accent-cyan);
+  animation: var(--animate-glitch);
+  clip-path: inset(0 0 50% 0);
+  transform: translate(-2px, -1px);
+}
+
+.glitch:hover::after {
+  opacity: 0.8;
+  color: var(--accent-rose);
+  animation: var(--animate-glitch);
+  animation-delay: 0.1s;
+  clip-path: inset(50% 0 0 0);
+  transform: translate(2px, 1px);
+}
+
+/* --- Animated Gradient Border --- */
+.gradient-border {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.gradient-border::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 1px;
+  border-radius: 12px;
+  background: conic-gradient(
+    from var(--gradient-angle, 0deg),
+    var(--accent-cyan),
+    var(--accent-green),
+    var(--accent-amber),
+    var(--accent-cyan)
+  );
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  -webkit-mask-composite: xor;
+  animation: var(--animate-gradient-rotate);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.gradient-border:hover::before {
+  opacity: 1;
+}
+
+/* --- Glow Card Spotlight --- */
+.glow-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.glow-card:hover {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 30px -10px var(--glow-color);
+}
+
+.glow-card .spotlight {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  background: radial-gradient(
+    300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    var(--glow-color),
+    transparent 70%
+  );
+}
+
+.glow-card:hover .spotlight {
+  opacity: 1;
+}
+
+/* --- Terminal Blinking Cursor --- */
+.terminal-cursor::after {
+  content: "█";
+  color: var(--accent-green);
+  animation: var(--animate-blink);
+  margin-left: 2px;
+}
+
+/* --- Keyframes --- */
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 10px var(--accent-cyan), 0 0 20px var(--accent-cyan);
+  }
+  50% {
+    opacity: 0.8;
+    text-shadow: 0 0 20px var(--accent-cyan), 0 0 40px var(--accent-cyan);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+@keyframes flicker {
+  0% { opacity: 0.97; }
+  5% { opacity: 0.95; }
+  10% { opacity: 0.97; }
+  15% { opacity: 0.94; }
+  20% { opacity: 0.98; }
+  100% { opacity: 0.97; }
+}
+
+@keyframes glitch {
+  0% { transform: translate(0); }
+  20% { transform: translate(-3px, 2px); }
+  40% { transform: translate(3px, -2px); }
+  60% { transform: translate(-2px, -1px); }
+  80% { transform: translate(2px, 1px); }
+  100% { transform: translate(0); }
+}
+
+@keyframes gradient-rotate {
+  to {
+    --gradient-angle: 360deg;
+  }
+}
+
+@keyframes boot-line {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Register custom property for conic gradient animation */
+@property --gradient-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* --- Prose (Blog) Overrides --- */
+.prose-terminal {
+  --tw-prose-body: var(--text-primary);
+  --tw-prose-headings: var(--text-primary);
+  --tw-prose-links: var(--accent-cyan);
+  --tw-prose-code: var(--accent-green);
+  --tw-prose-pre-bg: var(--bg-secondary);
+  --tw-prose-pre-code: var(--text-primary);
+}
+
+.prose-terminal pre {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+}
+
+.prose-terminal code {
+  font-family: var(--font-jetbrains), monospace;
+  font-size: 0.875em;
+}
+
+.prose-terminal a {
+  text-decoration: none;
+  border-bottom: 1px solid var(--accent-cyan);
+  transition: border-color 0.2s;
+}
+
+.prose-terminal a:hover {
+  border-color: transparent;
+  color: var(--accent-cyan);
+}
+
+/* --- Mode Transition Glitch --- */
+.mode-transition {
+  animation: mode-glitch 0.3s ease-out;
+}
+
+@keyframes mode-glitch {
+  0% { filter: blur(0); transform: scale(1); }
+  25% { filter: blur(2px); transform: scale(1.01) skewX(1deg); }
+  50% { filter: blur(4px); transform: scale(0.99) skewX(-2deg); }
+  75% { filter: blur(2px); transform: scale(1.01) skewX(0.5deg); }
+  100% { filter: blur(0); transform: scale(1); }
 }
