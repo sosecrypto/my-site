@@ -20,40 +20,51 @@ export default function MatrixRain() {
       fpsLimit: 60,
       particles: {
         number: {
-          value: 60,
+          value: 80,
           density: { enable: true, width: 1920, height: 1080 },
         },
-        color: { value: ["#22d3ee", "#4ade80", "#f59e0b"] },
-        shape: { type: "char", options: { char: { value: ["0", "1", ">", "$", "#", "@", "&", "%", "█"], font: "JetBrains Mono", style: "", weight: "400" } } },
+        color: { value: ["#22d3ee", "#4ade80", "#f59e0b", "#fb923c"] },
+        shape: { type: "circle" },
         opacity: {
-          value: { min: 0.1, max: 0.5 },
-          animation: { enable: true, speed: 0.5, startValue: "random" },
+          value: { min: 0.15, max: 0.6 },
+          animation: { enable: true, speed: 0.8, startValue: "random" },
         },
         size: {
-          value: { min: 8, max: 14 },
+          value: { min: 1.5, max: 3.5 },
         },
         move: {
           enable: true,
-          speed: { min: 0.5, max: 2 },
-          direction: "bottom" as const,
-          straight: true,
-          outModes: { default: "out" as const },
+          speed: { min: 0.3, max: 1.2 },
+          direction: "none" as const,
+          straight: false,
+          outModes: { default: "bounce" as const },
+          random: true,
+          attract: {
+            enable: false,
+          },
         },
         links: {
-          enable: false,
+          enable: true,
+          distance: 150,
+          color: "#22d3ee",
+          opacity: 0.12,
+          width: 1,
         },
       },
       interactivity: {
         events: {
           onHover: {
             enable: true,
-            mode: "repulse" as const,
+            mode: "grab" as const,
           },
         },
         modes: {
-          repulse: {
-            distance: 100,
-            duration: 0.4,
+          grab: {
+            distance: 180,
+            links: {
+              opacity: 0.35,
+              color: "#f59e0b",
+            },
           },
         },
       },

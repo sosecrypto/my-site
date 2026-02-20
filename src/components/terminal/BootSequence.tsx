@@ -7,8 +7,9 @@ const BOOT_LINES = [
   { text: "[████████████████] Booting sanghyun.dev...", delay: 0 },
   { text: "Loading modules... done.", delay: 400 },
   { text: "Initializing profile... done.", delay: 800 },
-  { text: "Mounting /career... done.", delay: 1100 },
-  { text: "> run hello_world.sh", delay: 1400 },
+  { text: "Initializing humanity module... always on.", delay: 1100 },
+  { text: "Mounting /career... done.", delay: 1400 },
+  { text: "> run hello_world.sh", delay: 1700 },
 ];
 
 const noop = () => () => {};
@@ -46,7 +47,7 @@ export default function BootSequence() {
 
     setTimeout(() => {
       setVisible(false);
-    }, 2200);
+    }, 2500);
 
     return () => clearInterval(progressInterval);
   }, []);

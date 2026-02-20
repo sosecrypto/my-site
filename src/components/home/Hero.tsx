@@ -27,17 +27,20 @@ export default function Hero() {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Matrix Rain Background */}
-      <div className="absolute inset-0 opacity-30">
+      {/* Network Particle Background */}
+      <div className="absolute inset-0 opacity-40">
         <MatrixRain />
       </div>
 
-      {/* Radial gradient overlay */}
+      {/* Warm + Cool gradient overlay — 차가움과 따뜻함의 대비 */}
       <div
         className="absolute inset-0 z-[1]"
         style={{
-          background:
+          background: [
+            "radial-gradient(ellipse at 30% 50%, rgba(251, 146, 60, 0.06) 0%, transparent 50%)",
+            "radial-gradient(ellipse at 70% 50%, rgba(34, 211, 238, 0.06) 0%, transparent 50%)",
             "radial-gradient(ellipse at center, transparent 0%, var(--bg-primary) 70%)",
+          ].join(", "),
         }}
       />
 
@@ -57,20 +60,34 @@ export default function Hero() {
           <span className="text-accent-green">whoami</span>
         </motion.p>
 
-        {/* Name with glitch */}
+        {/* Name — 타이핑 후 "숨 쉬는" 애니메이션 */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
           className="text-[clamp(2rem,5vw,3.5rem)] font-extrabold leading-tight mb-2"
         >
-          <TypeWriter
-            text={`${PROFILE.name} (${PROFILE.nameEn})`}
-            speed={80}
-            delay={800}
-            onComplete={handleNameComplete}
-            className="text-text-primary"
-          />
+          {nameComplete ? (
+            <motion.span
+              animate={{ scale: [1, 1.005, 1] }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut" as const,
+              }}
+              className="inline-block text-text-primary"
+            >
+              {PROFILE.name} ({PROFILE.nameEn})
+            </motion.span>
+          ) : (
+            <TypeWriter
+              text={`${PROFILE.name} (${PROFILE.nameEn})`}
+              speed={80}
+              delay={800}
+              onComplete={handleNameComplete}
+              className="text-text-primary"
+            />
+          )}
         </motion.h1>
 
         {/* Title with glitch effect */}

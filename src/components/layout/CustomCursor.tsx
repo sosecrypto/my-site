@@ -2,14 +2,40 @@
 
 import { useEffect, useRef, useState } from "react";
 
+type CursorZone = "tech" | "human";
+
+function getZone(y: number): CursorZone {
+  // about 섹션(#about) ~ contact 섹션(#contact) 부근에서 따뜻한 색상
+  const aboutEl = document.getElementById("about");
+  const contactEl = document.getElementById("contact");
+
+  if (aboutEl && contactEl) {
+    const aboutTop = aboutEl.getBoundingClientRect().top + window.scrollY;
+    const contactBottom =
+      contactEl.getBoundingClientRect().bottom + window.scrollY;
+    const scrollY = window.scrollY + y;
+
+    if (scrollY >= aboutTop && scrollY <= contactBottom) {
+      return "human";
+    }
+  }
+
+  return "tech";
+}
+
+const ZONE_COLORS: Record<CursorZone, { dot: string; glow: string }> = {
+  tech: { dot: "var(--accent-cyan)", glow: "rgba(34, 211, 238, 0.3)" },
+  human: { dot: "var(--accent-amber)", glow: "rgba(245, 158, 11, 0.3)" },
+};
+
 export default function CustomCursor() {
   const cursorRef = useRef<HTMLDivElement>(null);
   const trailRef = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
   const [isPointer, setIsPointer] = useState(false);
+  const [zone, setZone] = useState<CursorZone>("tech");
 
   useEffect(() => {
-    // 모바일/터치 기기에서는 비활성화
     if (window.matchMedia("(pointer: coarse)").matches) return;
 
     document.documentElement.classList.add("custom-cursor-active");
@@ -33,6 +59,8 @@ export default function CustomCursor() {
           target.closest("a") !== null ||
           target.closest("button") !== null
       );
+
+      setZone(getZone(e.clientY));
     };
 
     const handleLeave = () => setVisible(false);
@@ -50,10 +78,11 @@ export default function CustomCursor() {
     };
   }, [visible]);
 
-  // 모바일에서는 렌더링하지 않음
   if (typeof window !== "undefined" && window.matchMedia("(pointer: coarse)").matches) {
     return null;
   }
+
+  const colors = ZONE_COLORS[zone];
 
   return (
     <>
@@ -67,13 +96,14 @@ export default function CustomCursor() {
         }}
       >
         <div
-          className="rounded-full -translate-x-1/2 -translate-y-1/2 transition-all duration-150"
+          className="rounded-full -translate-x-1/2 -translate-y-1/2"
           style={{
             width: isPointer ? 40 : 8,
             height: isPointer ? 40 : 8,
-            background: isPointer ? "transparent" : "var(--accent-cyan)",
-            border: isPointer ? "2px solid var(--accent-cyan)" : "none",
-            boxShadow: `0 0 ${isPointer ? 15 : 10}px var(--glow-color)`,
+            background: isPointer ? "transparent" : colors.dot,
+            border: isPointer ? `2px solid ${colors.dot}` : "none",
+            boxShadow: `0 0 ${isPointer ? 15 : 10}px ${colors.glow}`,
+            transition: "width 0.15s, height 0.15s, background 0.4s, border 0.4s, box-shadow 0.4s",
           }}
         />
       </div>
@@ -89,8 +119,9 @@ export default function CustomCursor() {
         <div
           className="w-6 h-6 rounded-full -translate-x-1/2 -translate-y-1/2"
           style={{
-            background: "var(--accent-cyan)",
+            background: colors.dot,
             filter: "blur(8px)",
+            transition: "background 0.4s",
           }}
         />
       </div>
