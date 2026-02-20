@@ -93,6 +93,7 @@ npm run test       # Vitest 실행
 - [x] 스크롤 기반 섹션 리빌 애니메이션
 - [x] 커스텀 커서
 - [x] 다크/라이트 테마 토글
+- [x] 프로젝트 포트폴리오 카드 섹션 (스크린샷 + GitHub/Live 링크)
 - [x] 반응형 디자인
 - [x] 블로그 시스템 (Supabase + Markdown)
 - [x] 관리자 패널 (게시물 CRUD)

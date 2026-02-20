@@ -39,3 +39,12 @@ export interface Project {
   sort_order: number;
   created_at: string;
 }
+
+export interface ProjectCard {
+  title: string;
+  description: string;
+  tags: string[];
+  github: string;
+  live?: string;
+  thumbnail: string;
+}

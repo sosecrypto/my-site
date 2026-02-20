@@ -1,4 +1,4 @@
-import type { CareerEntry, Keyword } from "@/types";
+import type { CareerEntry, Keyword, ProjectCard } from "@/types";
 
 export const PROFILE = {
   name: "엄상현",
@@ -90,10 +90,44 @@ export const PROFILE = {
   ] satisfies CareerEntry[],
 } as const;
 
+export const PROJECTS: ProjectCard[] = [
+  {
+    title: "AI Book",
+    description: "AI 멀티 에이전트 기반 책 집필 플랫폼",
+    tags: ["Next.js", "Claude API", "Multi-Agent", "Prisma"],
+    github: "https://github.com/sumsun-dev/ai-book",
+    live: "https://ai-book-delta-navy.vercel.app",
+    thumbnail: "/projects/ai-book.png",
+  },
+  {
+    title: "AI Chef",
+    description: "식재료 관리 & 맞춤 레시피 추천 AI 셰프",
+    tags: ["Flutter", "Next.js", "Gemini", "Supabase"],
+    github: "https://github.com/sumsun-dev/ai-chef",
+    thumbnail: "/projects/ai-chef.png",
+  },
+  {
+    title: "Talk With Legends",
+    description: "RAG 기반 AI 페르소나 챗봇 — 유명인과 대화하기",
+    tags: ["Next.js", "Claude API", "RAG", "pgvector"],
+    github: "https://github.com/sumsun-dev/talk-with",
+    thumbnail: "/projects/talk-with.png",
+  },
+  {
+    title: "The Ticker is ETH",
+    description: "이더리움 뉴스레터 & 커뮤니티 허브",
+    tags: ["Next.js", "TypeScript", "Ethereum"],
+    github: "https://github.com/sumsun-dev/The-Ticker-is-ETH",
+    live: "https://the-ticker-is-eth-pi.vercel.app",
+    thumbnail: "/projects/the-ticker-is-eth.png",
+  },
+];
+
 export const CATEGORIES = ["전체", "생각", "기술", "활동", "기타"] as const;
 
 export const NAV_LINKS = [
   { label: "about", href: "#about" },
+  { label: "projects", href: "#projects" },
   { label: "career", href: "#career" },
   { label: "blog", href: "#blog" },
   { label: "contact", href: "#contact" },
