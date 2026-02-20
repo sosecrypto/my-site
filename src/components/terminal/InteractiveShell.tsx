@@ -109,6 +109,7 @@ export default function InteractiveShell() {
           autoFocus
           spellCheck={false}
           autoComplete="off"
+          aria-label="터미널 명령어 입력"
         />
       </div>
     </div>

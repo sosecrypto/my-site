@@ -93,6 +93,7 @@ export default function Navbar() {
           {/* CLI Toggle */}
           <button
             onClick={toggleMode}
+            aria-label={isCli ? "일반 모드로 전환" : "CLI 모드로 전환"}
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono
               transition-all duration-200 border ${
               isCli
@@ -111,7 +112,8 @@ export default function Navbar() {
             <button
               className="md:hidden p-2 text-text-secondary hover:text-accent-cyan"
               onClick={() => setMobileOpen(!mobileOpen)}
-              aria-label="메뉴 열기"
+              aria-label={mobileOpen ? "메뉴 닫기" : "메뉴 열기"}
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
