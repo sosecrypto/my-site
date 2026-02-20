@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { useTheme } from "next-themes";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import type { ISourceOptions } from "@tsparticles/engine";
 
 export default function MatrixRain() {
   const [init, setInit] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -23,14 +26,18 @@ export default function MatrixRain() {
           value: 80,
           density: { enable: true, width: 1920, height: 1080 },
         },
-        color: { value: ["#22d3ee", "#4ade80", "#f59e0b", "#fb923c"] },
+        color: {
+          value: isDark
+            ? ["#22d3ee", "#4ade80", "#f59e0b", "#fb923c"]
+            : ["#0891b2", "#16a34a", "#d97706", "#ea580c"],
+        },
         shape: { type: "circle" },
         opacity: {
-          value: { min: 0.15, max: 0.6 },
+          value: isDark ? { min: 0.15, max: 0.6 } : { min: 0.3, max: 0.8 },
           animation: { enable: true, speed: 0.8, startValue: "random" },
         },
         size: {
-          value: { min: 1.5, max: 3.5 },
+          value: isDark ? { min: 1.5, max: 3.5 } : { min: 2, max: 4 },
         },
         move: {
           enable: true,
@@ -46,8 +53,8 @@ export default function MatrixRain() {
         links: {
           enable: true,
           distance: 150,
-          color: "#22d3ee",
-          opacity: 0.12,
+          color: isDark ? "#22d3ee" : "#0891b2",
+          opacity: isDark ? 0.12 : 0.2,
           width: 1,
         },
       },
@@ -62,15 +69,15 @@ export default function MatrixRain() {
           grab: {
             distance: 180,
             links: {
-              opacity: 0.35,
-              color: "#f59e0b",
+              opacity: isDark ? 0.35 : 0.5,
+              color: isDark ? "#f59e0b" : "#d97706",
             },
           },
         },
       },
       detectRetina: true,
     }),
-    []
+    [isDark]
   );
 
   if (!init) return null;

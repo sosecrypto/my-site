@@ -28,7 +28,7 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Network Particle Background */}
-      <div className="absolute inset-0 opacity-40">
+      <div className="absolute inset-0 opacity-40 dark:opacity-40">
         <MatrixRain />
       </div>
 
@@ -37,9 +37,9 @@ export default function Hero() {
         className="absolute inset-0 z-[1]"
         style={{
           background: [
-            "radial-gradient(ellipse at 30% 50%, rgba(251, 146, 60, 0.06) 0%, transparent 50%)",
-            "radial-gradient(ellipse at 70% 50%, rgba(34, 211, 238, 0.06) 0%, transparent 50%)",
-            "radial-gradient(ellipse at center, transparent 0%, var(--bg-primary) 70%)",
+            "radial-gradient(ellipse at 30% 50%, rgba(251, 146, 60, 0.08) 0%, transparent 50%)",
+            "radial-gradient(ellipse at 70% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 50%)",
+            "radial-gradient(ellipse at center, transparent 0%, var(--bg-primary) 75%)",
           ].join(", "),
         }}
       />
