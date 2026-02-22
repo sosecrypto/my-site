@@ -2,9 +2,11 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Terminal, Menu, X } from "lucide-react";
-import { NAV_LINKS } from "@/lib/constants";
+import { NAV_LINKS, LIFE_NAV_LINKS } from "@/lib/constants";
 import { useViewMode } from "@/hooks/useViewMode";
+import { useLifeWork } from "@/hooks/useLifeWork";
 import ThemeToggle from "./ThemeToggle";
+import LifeWorkToggle from "@/components/home/life-work-toggle";
 
 function MagneticLink({
   children,
@@ -49,8 +51,11 @@ function MagneticLink({
 
 export default function Navbar() {
   const { isCli, toggleMode } = useViewMode();
+  const { mode } = useLifeWork();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const navLinks = mode === "work" ? NAV_LINKS : LIFE_NAV_LINKS;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 20);
@@ -76,7 +81,7 @@ export default function Navbar() {
         {/* Desktop nav links */}
         {!isCli && (
           <div className="hidden md:flex items-center gap-1">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <MagneticLink
                 key={link.href}
                 href={link.href}
@@ -85,11 +90,21 @@ export default function Navbar() {
                 {link.label}
               </MagneticLink>
             ))}
+            <div className="ml-2 pl-3 border-l border-border">
+              <LifeWorkToggle />
+            </div>
           </div>
         )}
 
         {/* Right controls */}
         <div className="flex items-center gap-2">
+          {/* LIFE/WORK Toggle (mobile) */}
+          {!isCli && (
+            <div className="md:hidden">
+              <LifeWorkToggle />
+            </div>
+          )}
+
           {/* CLI Toggle */}
           <button
             onClick={toggleMode}
@@ -125,7 +140,7 @@ export default function Navbar() {
       {mobileOpen && !isCli && (
         <div className="md:hidden glass border-t border-border">
           <div className="px-4 py-3 flex flex-col gap-1">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <a
                 key={link.href}
                 href={link.href}

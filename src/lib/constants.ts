@@ -1,4 +1,4 @@
-import type { CareerEntry, Keyword, ProjectCard } from "@/types";
+import type { CareerEntry, Keyword, ProjectCard, Hobby, DailyRoutine } from "@/types";
 
 export const PROFILE = {
   name: "엄상현",
@@ -131,4 +131,36 @@ export const NAV_LINKS = [
   { label: "career", href: "#career" },
   { label: "blog", href: "#blog" },
   { label: "contact", href: "#contact" },
+] as const;
+
+export const LIFE_PROFILE = {
+  dog: {
+    name: "뽀삐",
+    breed: "골든 리트리버",
+    birthday: "2020.03.15",
+    personality: ["활발한", "사랑스러운", "똑똑한"],
+    description: "산책과 공놀이를 좋아하는 우리집 막내",
+  },
+  hobbies: [
+    { icon: "🎮", title: "Gaming", desc: "스팀 게임, 닌텐도 스위치" },
+    { icon: "📚", title: "Reading", desc: "경제, 기술, SF 소설" },
+    { icon: "🏃", title: "Running", desc: "주 3회 한강 러닝" },
+    { icon: "☕", title: "Coffee", desc: "핸드드립 홈카페" },
+    { icon: "🎵", title: "Music", desc: "재즈, 로파이 힙합" },
+  ] satisfies Hobby[],
+  dailyLife: [
+    { time: "07:00", activity: "기상 & 뽀삐 산책", icon: "🌅" },
+    { time: "09:00", activity: "업무 시작", icon: "💻" },
+    { time: "12:30", activity: "점심 & 커피", icon: "☕" },
+    { time: "18:00", activity: "저녁 러닝", icon: "🏃" },
+    { time: "21:00", activity: "독서 & 게임", icon: "📚" },
+    { time: "23:00", activity: "뽀삐와 저녁 산책", icon: "🐕" },
+  ] satisfies DailyRoutine[],
+} as const;
+
+export const LIFE_NAV_LINKS = [
+  { label: "hobbies", href: "#hobbies" },
+  { label: "daily", href: "#daily" },
+  { label: "philosophy", href: "#philosophy" },
+  { label: "reading", href: "#reading" },
 ] as const;

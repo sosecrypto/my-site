@@ -48,3 +48,15 @@ export interface ProjectCard {
   live?: string;
   thumbnail: string;
 }
+
+export interface Hobby {
+  icon: string;
+  title: string;
+  desc: string;
+}
+
+export interface DailyRoutine {
+  time: string;
+  activity: string;
+  icon: string;
+}

@@ -16,8 +16,8 @@
 src/
 ├── app/            # Next.js App Router (pages, layouts, metadata)
 ├── components/     # React components (admin, blog, effects, home, layout, terminal, ui)
-├── contexts/       # React Context (ViewMode: Normal/CLI toggle)
-├── hooks/          # Custom hooks (useTerminal, useTypeWriter, useScrollReveal, useViewMode)
+├── contexts/       # React Context (ViewMode: Normal/CLI, LifeWork: WORK/LIFE)
+├── hooks/          # Custom hooks (useTerminal, useTypeWriter, useScrollReveal, useViewMode, useLifeWork)
 ├── lib/            # Utilities (utils.ts, terminal-commands.ts, constants.ts, supabase/)
 ├── types/          # TypeScript type definitions
 └── fonts/          # Local font files (Pretendard)
@@ -31,6 +31,7 @@ src/
 - **Proxy file**: `src/proxy.ts` (NOT middleware.ts — Next.js 16 convention)
 - **Fonts**: Pretendard (Korean, local), JetBrains Mono (English, Google Fonts)
 - **Theme**: dark/light via `next-themes`, CSS variables for colors
+- **LIFE/WORK mode**: `data-life-mode` HTML attribute로 CSS 테마 이원화, LifeWorkContext로 상태 관리
 
 ## Commands
 

@@ -91,8 +91,11 @@ npm run test       # Vitest 실행
 - [x] Matrix Rain 파티클 배경 (라이트/다크 대응)
 - [x] 글리치 텍스트 + CRT 오버레이 효과
 - [x] 스크롤 기반 섹션 리빌 애니메이션
-- [x] 커스텀 커서
+- [x] 커스텀 커서 (context-aware zone: tech/human/dog)
 - [x] 다크/라이트 테마 토글
+- [x] LIFE/WORK 모드 전환 (CSS 테마 이원화, Navbar pill 토글)
+- [x] LIFE 모드 섹션 (취미, 일상, 철학, 독서)
+- [x] 동영상 히어로 배경 (LIFE 모드)
 - [x] 프로젝트 포트폴리오 카드 섹션 (스크린샷 + GitHub/Live 링크)
 - [x] 반응형 디자인
 - [x] 블로그 시스템 (Supabase + Markdown)

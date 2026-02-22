@@ -5,12 +5,18 @@ import { motion } from "framer-motion";
 import { Github, Send, Linkedin, ChevronDown } from "lucide-react";
 import dynamic from "next/dynamic";
 import { PROFILE } from "@/lib/constants";
+import { useLifeWork } from "@/hooks/useLifeWork";
 import TypeWriter from "@/components/terminal/TypeWriter";
 import GlitchText from "@/components/effects/GlitchText";
 
 const MatrixRain = dynamic(() => import("@/components/effects/MatrixRain"), {
   ssr: false,
 });
+
+const VideoBackground = dynamic(
+  () => import("@/components/effects/video-background"),
+  { ssr: false }
+);
 
 const SOCIAL_LINKS = [
   { icon: Github, href: PROFILE.links.github, label: "GitHub" },
@@ -20,26 +26,38 @@ const SOCIAL_LINKS = [
 
 export default function Hero() {
   const [nameComplete, setNameComplete] = useState(false);
+  const { mode } = useLifeWork();
+
+  const bgType = mode === "life" ? "video" : "matrix";
 
   const handleNameComplete = useCallback(() => {
     setNameComplete(true);
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Network Particle Background */}
-      <div className="absolute inset-0 opacity-40 dark:opacity-40">
+    <section data-bg={bgType} className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Background Layers — both pre-mounted, toggle via opacity */}
+      <div
+        className="absolute inset-0 transition-opacity duration-700"
+        style={{ opacity: bgType === "matrix" ? 0.4 : 0 }}
+      >
         <MatrixRain />
       </div>
+      <div
+        className="absolute inset-0 transition-opacity duration-700"
+        style={{ opacity: bgType === "video" ? 0.55 : 0 }}
+      >
+        <VideoBackground />
+      </div>
 
-      {/* Warm + Cool gradient overlay — 차가움과 따뜻함의 대비 */}
+      {/* Vignette + gradient overlay */}
       <div
         className="absolute inset-0 z-[1]"
         style={{
           background: [
             "radial-gradient(ellipse at 30% 50%, rgba(251, 146, 60, 0.08) 0%, transparent 50%)",
             "radial-gradient(ellipse at 70% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 50%)",
-            "radial-gradient(ellipse at center, transparent 0%, var(--bg-primary) 75%)",
+            `radial-gradient(ellipse at center, transparent 40%, var(--bg-primary) ${bgType === "video" ? "90%" : "80%"})`,
           ].join(", "),
         }}
       />
@@ -60,12 +78,14 @@ export default function Hero() {
           <span className="text-accent-green">whoami</span>
         </motion.p>
 
-        {/* Name — 타이핑 후 "숨 쉬는" 애니메이션 */}
+        {/* Name */}
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.6 }}
-          className="text-[clamp(2rem,5vw,3.5rem)] font-extrabold leading-tight mb-2"
+          className={`text-[clamp(2rem,5vw,3.5rem)] leading-tight mb-2 ${
+            bgType === "video" ? "font-bold" : "font-extrabold"
+          }`}
         >
           {nameComplete ? (
             <motion.span
@@ -77,11 +97,11 @@ export default function Hero() {
               }}
               className="inline-block text-text-primary"
             >
-              {PROFILE.name} ({PROFILE.nameEn})
+              {PROFILE.name}
             </motion.span>
           ) : (
             <TypeWriter
-              text={`${PROFILE.name} (${PROFILE.nameEn})`}
+              text={PROFILE.name}
               speed={80}
               delay={800}
               onComplete={handleNameComplete}
@@ -153,7 +173,7 @@ export default function Hero() {
           className="absolute bottom-8 left-1/2 -translate-x-1/2"
         >
           <a
-            href="#about"
+            href={mode === "work" ? "#about" : "#hobbies"}
             className="flex flex-col items-center gap-2 text-text-secondary hover:text-accent-cyan transition-colors"
           >
             <span className="text-xs font-mono">scroll</span>

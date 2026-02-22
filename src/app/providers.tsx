@@ -4,6 +4,7 @@ import { ThemeProvider } from "next-themes";
 import { useEffect } from "react";
 import Lenis from "lenis";
 import { ViewModeProvider } from "@/contexts/ViewModeContext";
+import { LifeWorkProvider } from "@/contexts/LifeWorkContext";
 
 function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -33,7 +34,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <ViewModeProvider>
-        <SmoothScroll>{children}</SmoothScroll>
+        <LifeWorkProvider>
+          <SmoothScroll>{children}</SmoothScroll>
+        </LifeWorkProvider>
       </ViewModeProvider>
     </ThemeProvider>
   );

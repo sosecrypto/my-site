@@ -1,19 +1,37 @@
 "use client";
 
+import { useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Hero from "@/components/home/Hero";
 import AboutSection from "@/components/home/AboutSection";
 import CareerTimeline from "@/components/home/CareerTimeline";
 import ProjectsSection from "@/components/home/ProjectsSection";
 import BlogPreview from "@/components/home/BlogPreview";
 import ContactSection from "@/components/home/ContactSection";
+import HobbiesSection from "@/components/home/hobbies-section";
+import DailyLifeSection from "@/components/home/daily-life-section";
+import PhilosophySection from "@/components/home/philosophy-section";
+import ReadingSection from "@/components/home/reading-section";
 import BootSequence from "@/components/terminal/BootSequence";
 import TerminalWindow from "@/components/terminal/TerminalWindow";
 import InteractiveShell from "@/components/terminal/InteractiveShell";
 import ModeTransition from "@/components/effects/ModeTransition";
 import { useViewMode } from "@/hooks/useViewMode";
+import { useLifeWork } from "@/hooks/useLifeWork";
+
+const sectionVariants = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.4 } },
+  exit: { opacity: 0, y: -20, transition: { duration: 0.3 } },
+};
 
 export default function Home() {
   const { isCli } = useViewMode();
+  const { mode } = useLifeWork();
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [mode]);
 
   return (
     <ModeTransition>
@@ -28,11 +46,36 @@ export default function Home() {
           <BootSequence />
           <Hero />
           <div className="mx-auto max-w-4xl px-4 sm:px-6">
-            <AboutSection />
-            <CareerTimeline />
-            <ProjectsSection />
-            <BlogPreview />
-            <ContactSection />
+            <AnimatePresence mode="wait">
+              {mode === "work" ? (
+                <motion.div
+                  key="work"
+                  variants={sectionVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  <AboutSection />
+                  <CareerTimeline />
+                  <ProjectsSection />
+                  <BlogPreview />
+                  <ContactSection />
+                </motion.div>
+              ) : (
+                <motion.div
+                  key="life"
+                  variants={sectionVariants}
+                  initial="initial"
+                  animate="animate"
+                  exit="exit"
+                >
+                  <HobbiesSection />
+                  <DailyLifeSection />
+                  <PhilosophySection />
+                  <ReadingSection />
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </>
       )}
