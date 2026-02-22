@@ -1,4 +1,4 @@
-import type { CareerEntry, Keyword, ProjectCard, Hobby, DailyRoutine } from "@/types";
+import type { CareerEntry, Keyword, ProjectCard, Hobby, DailyRoutine, Quote, Book } from "@/types";
 
 export const PROFILE = {
   name: "엄상현",
@@ -162,6 +162,21 @@ export const LIFE_PROFILE = {
     { time: "21:00", activity: "독서 & 게임", icon: "📚" },
     { time: "23:00", activity: "뽀삐와 저녁 산책", icon: "🐕" },
   ] satisfies DailyRoutine[],
+  quotes: [
+    { icon: "💭", text: "삶이란 B(Birth)와 D(Death) 사이의 C(Choice)이다.", source: "장 폴 사르트르" },
+    { icon: "😊", text: "행복은 습관이다. 그것을 몸에 지니라.", source: "허버트" },
+    { icon: "⏰", text: "오늘 할 수 있는 일을 내일로 미루지 마라.", source: "벤자민 프랭클린" },
+    { icon: "🚀", text: "가장 큰 위험은 위험 없는 삶이다.", source: "스티븐 킹" },
+    { icon: "🚴", text: "균형을 유지하려면 계속 움직여야 한다.", source: "알베르트 아인슈타인" },
+  ] satisfies Quote[],
+  books: [
+    { title: "클린 코드", author: "로버트 C. 마틴", status: "finished", genre: "기술", rating: 5, review: "개발자라면 꼭 읽어야 할 필독서" },
+    { title: "데미안", author: "헤르만 헤세", status: "finished", genre: "소설", rating: 4, review: "청춘의 성장과 자아 탐구" },
+    { title: "사피엔스", author: "유발 하라리", status: "reading", genre: "인문", review: "인류의 역사를 새롭게 바라보다" },
+    { title: "이더리움 백서", author: "비탈릭 부테린", status: "reading", genre: "기술" },
+    { title: "생각, 빠르고 느리게", author: "대니얼 카너먼", status: "wishlist", genre: "심리" },
+    { title: "프로젝트 헤일메리", author: "앤디 위어", status: "wishlist", genre: "SF" },
+  ] satisfies Book[],
 } as const;
 
 export const LIFE_NAV_LINKS = [

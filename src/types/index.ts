@@ -60,3 +60,18 @@ export interface DailyRoutine {
   activity: string;
   icon: string;
 }
+
+export interface Quote {
+  text: string;
+  source: string;
+  icon: string;
+}
+
+export interface Book {
+  title: string;
+  author: string;
+  status: "reading" | "finished" | "wishlist";
+  genre: string;
+  review?: string;
+  rating?: 1 | 2 | 3 | 4 | 5;
+}
