@@ -94,7 +94,7 @@ npm run test       # Vitest 실행
 - [x] 커스텀 커서 (context-aware zone: tech/human/dog)
 - [x] 다크/라이트 테마 토글
 - [x] LIFE/WORK 모드 전환 (CSS 테마 이원화, Navbar pill 토글)
-- [x] LIFE 모드 섹션 (취미, 일상, 철학, 독서)
+- [x] LIFE 모드 섹션 (취미, 일상, 철학 인용구, 독서 카드 그리드)
 - [x] LIFE 모드 Hero 차별화 (프롬프트 숨김, 따뜻한 타이틀/역할)
 - [x] 동영상 히어로 배경 (LIFE 모드, WebM + MP4 듀얼 소스)
 - [x] 프로젝트 포트폴리오 카드 섹션 (스크린샷 + GitHub/Live 링크)
