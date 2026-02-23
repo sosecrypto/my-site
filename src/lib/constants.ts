@@ -134,14 +134,14 @@ export const NAV_LINKS = [
 ] as const;
 
 export const LIFE_PROFILE = {
-  title: "뽀삐 아빠 | 커피 러버 | 한강 러너",
+  title: "와인 & 위스키 | 홈 쉐프 | 숨숨 & 선이",
   roles: [
-    "🐕 뽀삐와 함께하는 일상",
-    "☕ 핸드드립 홈카페",
-    "🏃 한강 러닝 러버",
+    "🍷 와인 & 위스키",
+    "👨‍🍳 홈 쉐프",
+    "🐕 숨숨 & 선이",
   ],
   dog: {
-    name: "뽀삐",
+    name: "숨숨이",
     breed: "골든 리트리버",
     birthday: "2020.03.15",
     personality: ["활발한", "사랑스러운", "똑똑한"],
@@ -155,12 +155,12 @@ export const LIFE_PROFILE = {
     { icon: "🎵", title: "Music", desc: "재즈, 로파이 힙합" },
   ] satisfies Hobby[],
   dailyLife: [
-    { time: "07:00", activity: "기상 & 뽀삐 산책", icon: "🌅" },
+    { time: "07:00", activity: "기상 & 숨숨이 산책", icon: "🌅" },
     { time: "09:00", activity: "업무 시작", icon: "💻" },
     { time: "12:30", activity: "점심 & 커피", icon: "☕" },
     { time: "18:00", activity: "저녁 러닝", icon: "🏃" },
     { time: "21:00", activity: "독서 & 게임", icon: "📚" },
-    { time: "23:00", activity: "뽀삐와 저녁 산책", icon: "🐕" },
+    { time: "23:00", activity: "숨숨이와 저녁 산책", icon: "🐕" },
   ] satisfies DailyRoutine[],
   quotes: [
     { icon: "💭", text: "삶이란 B(Birth)와 D(Death) 사이의 C(Choice)이다.", source: "장 폴 사르트르" },
