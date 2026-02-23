@@ -103,6 +103,16 @@
 }
 [data-life-mode="true"] .crt-overlay { opacity: 0 !important; }
 
+/* --- Focus Visible --- */
+:focus-visible {
+  outline: 2px solid var(--accent-cyan);
+  outline-offset: 2px;
+}
+
+[data-life-mode="true"] :focus-visible {
+  outline-color: var(--accent-amber);
+}
+
 /* --- Base Styles --- */
 html {
   scroll-behavior: smooth;

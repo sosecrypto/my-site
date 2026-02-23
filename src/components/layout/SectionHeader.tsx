@@ -46,7 +46,7 @@ export default function SectionHeader({ command, id }: SectionHeaderProps) {
     <div ref={ref} id={id} className="mb-10 scroll-mt-24">
       <h2 className="font-mono text-sm text-text-secondary">
         <span className="text-accent-cyan">$</span>{" "}
-        <span className="text-accent-green">{typed}</span>
+        <span aria-live="polite" aria-label={command} className="text-accent-green">{typed}</span>
         {typed.length < command.length && (
           <span className="inline-block w-2 h-4 bg-accent-green animate-blink ml-0.5 align-middle" />
         )}

@@ -69,7 +69,7 @@ export default function Navbar() {
         scrolled ? "glass shadow-lg" : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto max-w-5xl px-4 sm:px-6 h-16 flex items-center justify-between">
+      <nav aria-label="메인 네비게이션" className="mx-auto max-w-5xl px-4 sm:px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <MagneticLink
           href="/"
@@ -129,6 +129,7 @@ export default function Navbar() {
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label={mobileOpen ? "메뉴 닫기" : "메뉴 열기"}
               aria-expanded={mobileOpen}
+              aria-controls="mobile-menu"
             >
               {mobileOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
@@ -138,7 +139,7 @@ export default function Navbar() {
 
       {/* Mobile menu */}
       {mobileOpen && !isCli && (
-        <div className="md:hidden glass border-t border-border">
+        <div id="mobile-menu" role="navigation" aria-label="모바일 메뉴" className="md:hidden glass border-t border-border">
           <div className="px-4 py-3 flex flex-col gap-1">
             {navLinks.map((link) => (
               <a

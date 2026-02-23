@@ -60,7 +60,7 @@ export default function InteractiveShell() {
     <div
       ref={scrollRef}
       onClick={focusInput}
-      className="p-4 sm:p-6 font-mono text-xs sm:text-sm h-[70vh] overflow-y-auto"
+      className="p-4 sm:p-6 font-mono text-xs sm:text-sm max-h-[70vh] min-h-[300px] overflow-y-auto"
       style={{ cursor: "text" }}
     >
       {/* Boot messages */}
@@ -73,24 +73,26 @@ export default function InteractiveShell() {
       <hr className="border-border mb-4" />
 
       {/* History */}
-      {history.map((entry, i) => (
-        <div key={i} className="mb-3">
-          {/* Input line */}
-          <p>
-            <span className="text-accent-cyan">visitor</span>
-            <span className="text-text-secondary">@</span>
-            <span className="text-accent-green">terminal</span>
-            <span className="text-text-secondary">:~$</span>{" "}
-            <span className="text-text-primary">{entry.input}</span>
-          </p>
-          {/* Output */}
-          <div className="mt-1 ml-0">
-            {entry.output.map((line, j) => (
-              <OutputLine key={j} line={line} />
-            ))}
+      <div role="log" aria-label="터미널 출력">
+        {history.map((entry, i) => (
+          <div key={i} className="mb-3">
+            {/* Input line */}
+            <p>
+              <span className="text-accent-cyan">visitor</span>
+              <span className="text-text-secondary">@</span>
+              <span className="text-accent-green">terminal</span>
+              <span className="text-text-secondary">:~$</span>{" "}
+              <span className="text-text-primary">{entry.input}</span>
+            </p>
+            {/* Output */}
+            <div className="mt-1 ml-0">
+              {entry.output.map((line, j) => (
+                <OutputLine key={j} line={line} />
+              ))}
+            </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
 
       {/* Current input */}
       <div className="flex items-center">

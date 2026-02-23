@@ -12,7 +12,7 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
   return (
-    <Link href={`/blog/${post.slug}`}>
+    <Link href={`/blog/${post.slug}`} aria-label={`${post.title} 글 읽기`}>
       <GlowCard className="h-full hover:scale-[1.01] transition-transform">
         {/* Category + Date */}
         <div className="flex items-center gap-3 mb-3">
