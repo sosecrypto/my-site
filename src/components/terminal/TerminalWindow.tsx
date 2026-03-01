@@ -9,7 +9,7 @@ interface TerminalWindowProps {
 
 export default function TerminalWindow({
   children,
-  title = "visitor@sanghyun.dev",
+  title = "visitor@shmksumsun.xyz",
 }: TerminalWindowProps) {
   return (
     <div className="relative w-full max-w-4xl mx-auto">

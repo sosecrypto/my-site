@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     template: "%s | 엄상현",
   },
   description: "AI Vibe Coder & Web3 Native — 엄상현의 개인 사이트",
-  metadataBase: new URL("https://sanghyun.dev"),
+  metadataBase: new URL("https://shmksumsun.xyz"),
   openGraph: {
     title: "엄상현 | Terminal Odyssey",
     description: "AI Vibe Coder & Web3 Native — 엄상현의 개인 사이트",

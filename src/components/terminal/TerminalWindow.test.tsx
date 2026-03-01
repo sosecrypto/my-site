@@ -12,7 +12,7 @@ describe("TerminalWindow", () => {
   it("기본 title을 표시한다", () => {
     render(<TerminalWindow>내용</TerminalWindow>);
 
-    expect(screen.getByText("visitor@sanghyun.dev")).toBeInTheDocument();
+    expect(screen.getByText("visitor@shmksumsun.xyz")).toBeInTheDocument();
   });
 
   it("커스텀 title을 표시한다", () => {

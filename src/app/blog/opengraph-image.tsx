@@ -47,7 +47,7 @@ export default function Image() {
               <div style={{ width: "14px", height: "14px", borderRadius: "50%", background: "#22c55e" }} />
             </div>
             <span style={{ flex: 1, textAlign: "center", fontSize: "14px", color: "#94a3b8" }}>
-              visitor@sanghyun.dev — blog
+              visitor@shmksumsun.xyz — blog
             </span>
           </div>
 

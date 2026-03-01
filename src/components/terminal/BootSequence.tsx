@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const BOOT_LINES = [
-  { text: "[████████████████] Booting sanghyun.dev...", delay: 0 },
+  { text: "[████████████████] Booting shmksumsun.xyz...", delay: 0 },
   { text: "Loading modules... done.", delay: 400 },
   { text: "Initializing profile... done.", delay: 800 },
   { text: "Initializing humanity module... always on.", delay: 1100 },

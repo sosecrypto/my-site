@@ -132,7 +132,7 @@ const commands: Record<string, CommandHandler> = {
     return [
       { type: "ascii", content: ASCII_LOGO, className: "text-accent-cyan" },
       { type: "text", content: `  OS:      TerminalOdyssey v1.0`, className: "text-accent-green" },
-      { type: "text", content: `  Host:    sanghyun.dev`, className: "text-accent-green" },
+      { type: "text", content: `  Host:    shmksumsun.xyz`, className: "text-accent-green" },
       { type: "text", content: `  Kernel:  Next.js 16.x`, className: "text-accent-green" },
       { type: "text", content: `  Uptime:  ${uptime} days`, className: "text-accent-green" },
       { type: "text", content: `  Shell:   TerminalOdyssey Shell`, className: "text-accent-green" },
@@ -147,7 +147,7 @@ const commands: Record<string, CommandHandler> = {
   ],
 
   pwd: () => [
-    { type: "text", content: "/home/visitor/sanghyun.dev", className: "text-text-primary" },
+    { type: "text", content: "/home/visitor/shmksumsun.xyz", className: "text-text-primary" },
   ],
 };
 

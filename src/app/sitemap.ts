@@ -2,7 +2,7 @@ import { type MetadataRoute } from "next";
 import { getPublishedPosts } from "@/lib/supabase/queries";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = "https://sanghyun.dev";
+  const baseUrl = "https://shmksumsun.xyz";
 
   const posts = await getPublishedPosts();
   const blogEntries = posts.map((post) => ({
