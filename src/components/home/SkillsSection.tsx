@@ -2,35 +2,35 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { SKILLS, SKILL_CATEGORIES } from "@/lib/constants";
-import type { SkillCategory } from "@/types";
+import { CAPABILITIES, CAPABILITY_CATEGORIES } from "@/lib/constants";
+import type { CapabilityCategory } from "@/types";
 import SectionHeader from "@/components/layout/SectionHeader";
 import GlowCard from "@/components/ui/GlowCard";
 
 const container = {
   hidden: {},
-  show: { transition: { staggerChildren: 0.06 } },
+  show: { transition: { staggerChildren: 0.08 } },
 };
 
 const item = {
-  hidden: { opacity: 0, scale: 0.95 },
-  show: { opacity: 1, scale: 1, transition: { duration: 0.3 } },
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
 };
 
 export default function SkillsSection() {
-  const [filter, setFilter] = useState<SkillCategory | "all">("all");
+  const [filter, setFilter] = useState<CapabilityCategory | "all">("all");
 
   const filtered = filter === "all"
-    ? SKILLS
-    : SKILLS.filter((s) => s.category === filter);
+    ? CAPABILITIES
+    : CAPABILITIES.filter((c) => c.category === filter);
 
   return (
     <section className="py-20">
-      <SectionHeader command="cat ~/.skills" id="skills" />
+      <SectionHeader command="cat capabilities.md" id="skills" />
 
       {/* Category filter */}
       <div className="flex flex-wrap gap-2 mb-8">
-        {SKILL_CATEGORIES.map(({ key, label }) => (
+        {CAPABILITY_CATEGORIES.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => setFilter(key)}
@@ -45,7 +45,7 @@ export default function SkillsSection() {
         ))}
       </div>
 
-      {/* Skills grid */}
+      {/* Capability cards grid */}
       <AnimatePresence mode="wait">
         <motion.div
           key={filter}
@@ -54,28 +54,27 @@ export default function SkillsSection() {
           animate="show"
           className="grid grid-cols-1 sm:grid-cols-2 gap-4"
         >
-          {filtered.map((skill) => (
-            <motion.div key={skill.name} variants={item}>
-              <GlowCard className="!p-4">
-                <div className="flex items-center justify-between mb-1">
-                  <span className="font-mono text-sm text-text-primary">
-                    {skill.name}
-                  </span>
-                  <span className="font-mono text-xs text-text-secondary">
-                    {skill.level}%
-                  </span>
+          {filtered.map((cap) => (
+            <motion.div key={cap.title} variants={item}>
+              <GlowCard className="!p-5 h-full">
+                <div className="flex items-start gap-3 mb-3">
+                  <span className="text-2xl leading-none shrink-0">{cap.icon}</span>
+                  <h3 className="font-mono text-sm font-semibold text-text-primary leading-tight">
+                    {cap.title}
+                  </h3>
                 </div>
-                {skill.desc && (
-                  <p className="text-xs text-text-secondary mb-2">{skill.desc}</p>
-                )}
-                <div className="h-1.5 bg-bg-primary rounded-full overflow-hidden">
-                  <motion.div
-                    className="h-full rounded-full bg-gradient-to-r from-accent-cyan to-accent-green"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                  />
+                <p className="text-xs text-text-secondary mb-4 leading-relaxed">
+                  {cap.description}
+                </p>
+                <div className="flex flex-wrap gap-1.5">
+                  {cap.tools.map((tool) => (
+                    <span
+                      key={tool}
+                      className="px-2 py-0.5 text-[10px] font-mono rounded-full border border-border text-accent-cyan bg-accent-cyan/5"
+                    >
+                      {tool}
+                    </span>
+                  ))}
                 </div>
               </GlowCard>
             </motion.div>

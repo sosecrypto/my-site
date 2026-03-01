@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { ViewModeProvider } from "@/contexts/ViewModeContext";
 import { LifeWorkProvider } from "@/contexts/LifeWorkContext";
+import { SoundProvider } from "@/contexts/SoundContext";
 
 function SmoothScroll({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -29,7 +30,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
     <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
       <ViewModeProvider>
         <LifeWorkProvider>
-          <SmoothScroll>{children}</SmoothScroll>
+          <SoundProvider>
+            <SmoothScroll>{children}</SmoothScroll>
+          </SoundProvider>
         </LifeWorkProvider>
       </ViewModeProvider>
     </ThemeProvider>

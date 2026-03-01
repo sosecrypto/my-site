@@ -83,11 +83,11 @@ export default function ProjectsSection() {
           variants={container}
           initial="hidden"
           animate="show"
-          className="flex flex-col gap-6"
+          className="grid grid-cols-1 sm:grid-cols-2 gap-4"
         >
           {filtered.map((project) => (
             <motion.div key={project.title} variants={item} className="group">
-              <GlowCard className="!p-0 overflow-hidden">
+              <GlowCard className="!p-0 overflow-hidden h-full">
                 <div className="overflow-hidden rounded-t-lg">
                   <ProjectThumbnail
                     src={project.thumbnail}

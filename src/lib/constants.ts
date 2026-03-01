@@ -1,4 +1,4 @@
-import type { CareerEntry, Keyword, ProjectCard, ProjectCategory, Hobby, DailyRoutine, Quote, Book, MockPost, Skill, SkillCategory } from "@/types";
+import type { CareerEntry, Keyword, ProjectCard, ProjectCategory, Hobby, DailyRoutine, Quote, Book, MockPost, Skill, SkillCategory, Capability, CapabilityCategory } from "@/types";
 
 export const PROFILE = {
   name: "엄상현",
@@ -9,7 +9,8 @@ export const PROFILE = {
 
   links: {
     github: "https://github.com/sumsun-dev",
-    telegram: "https://t.me/crypto_offroad",
+    telegram: "https://t.me/sose_crypto",
+    telegramChannel: "https://t.me/crypto_offroad",
     linkedin: "https://www.linkedin.com/in/상현-엄-5a03b628a/",
   },
 
@@ -160,9 +161,9 @@ export const CATEGORIES = ["전체", "생각", "기술", "활동", "기타"] as 
 
 export const NAV_LINKS = [
   { label: "about", href: "#about" },
-  { label: "skills", href: "#skills" },
   { label: "projects", href: "#projects" },
   { label: "career", href: "#career" },
+  { label: "skills", href: "#skills" },
   { label: "blog", href: "#blog" },
   { label: "contact", href: "#contact" },
 ] as const;
@@ -219,6 +220,59 @@ export const LIFE_NAV_LINKS = [
   { label: "philosophy", href: "#philosophy" },
   { label: "reading", href: "#reading" },
 ] as const;
+
+export const CAPABILITY_CATEGORIES: { key: CapabilityCategory | "all"; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "analysis", label: "Analysis" },
+  { key: "product", label: "Product" },
+  { key: "content", label: "Content" },
+  { key: "ai", label: "AI" },
+];
+
+export const CAPABILITIES: Capability[] = [
+  {
+    icon: "📊",
+    title: "온체인 데이터 분석",
+    description: "블록체인 트랜잭션 데이터를 수집·시각화하여 인사이트 도출",
+    tools: ["Dune Analytics", "SQL", "Python"],
+    category: "analysis",
+  },
+  {
+    icon: "🚀",
+    title: "풀스택 프로덕트 빌딩",
+    description: "아이디어부터 배포까지 혼자 완성하는 프로덕트 개발",
+    tools: ["Next.js", "React", "Supabase", "Tailwind"],
+    category: "product",
+  },
+  {
+    icon: "✍️",
+    title: "기술 콘텐츠 & 스토리텔링",
+    description: "복잡한 기술을 누구나 이해할 수 있는 콘텐츠로 변환",
+    tools: ["뉴스레터", "블로그", "SNS"],
+    category: "content",
+  },
+  {
+    icon: "🤖",
+    title: "AI 에이전트 시스템 설계",
+    description: "멀티 에이전트 파이프라인 설계 및 AI 기반 서비스 구축",
+    tools: ["Claude API", "RAG", "pgvector"],
+    category: "ai",
+  },
+  {
+    icon: "📈",
+    title: "성장 전략 & 그로스",
+    description: "데이터 기반 성장 전략 수립 및 팀 리드",
+    tools: ["대시보드", "A/B 테스트", "KPI 설계"],
+    category: "analysis",
+  },
+  {
+    icon: "📱",
+    title: "크로스플랫폼 앱 개발",
+    description: "모바일 + 웹 크로스플랫폼 서비스 구현",
+    tools: ["Flutter", "React Native"],
+    category: "product",
+  },
+];
 
 export const SKILL_CATEGORIES: { key: SkillCategory | "all"; label: string }[] = [
   { key: "all", label: "All" },

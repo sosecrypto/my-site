@@ -2,12 +2,17 @@ import React from "react";
 import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
 import { render, screen, act } from "@testing-library/react";
 import Hero from "./Hero";
-import { PROFILE, LIFE_PROFILE } from "@/lib/constants";
+import { PROFILE, LIFE_PROFILE, PROJECTS } from "@/lib/constants";
 
 // useLifeWork mock
 const mockUseLifeWork = vi.fn();
 vi.mock("@/hooks/useLifeWork", () => ({
   useLifeWork: () => mockUseLifeWork(),
+}));
+
+// useSound mock
+vi.mock("@/hooks/useSound", () => ({
+  useSound: () => ({ isMuted: true, toggleMute: vi.fn() }),
 }));
 
 // Framer Motion mock — filter non-HTML props
@@ -31,6 +36,7 @@ vi.mock("framer-motion", () => ({
     p: ({ children, ...p }: Record<string, unknown>) => <p {...filterProps(p)}>{children as React.ReactNode}</p>,
     span: ({ children, ...p }: Record<string, unknown>) => <span {...filterProps(p)}>{children as React.ReactNode}</span>,
     a: ({ children, ...p }: Record<string, unknown>) => <a {...filterProps(p) as React.AnchorHTMLAttributes<HTMLAnchorElement>}>{children as React.ReactNode}</a>,
+    button: ({ children, ...p }: Record<string, unknown>) => <button {...filterProps(p) as React.ButtonHTMLAttributes<HTMLButtonElement>}>{children as React.ReactNode}</button>,
   },
   AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
@@ -77,7 +83,6 @@ describe("Hero", () => {
     let result: ReturnType<typeof render>;
     act(() => {
       result = render(<Hero />);
-      vi.runAllTimers();
     });
     return result!;
   };
@@ -92,72 +97,100 @@ describe("Hero", () => {
     return result!;
   };
 
-  it("WORK 모드에서 터미널 프롬프트를 표시한다", () => {
-    renderWork();
-    expect(screen.getByText("whoami")).toBeInTheDocument();
-  });
+  // === WORK 모드: 시네마틱 인트로 ===
 
-  it("LIFE 모드에서 터미널 프롬프트를 숨긴다", () => {
-    renderLife();
-    expect(screen.queryByText("whoami")).not.toBeInTheDocument();
-  });
-
-  it("PROFILE.name을 표시한다", () => {
-    renderWork();
-    expect(screen.getByText(PROFILE.name)).toBeInTheDocument();
-  });
-
-  it("WORK 모드에서 PROFILE.title을 GlitchText로 표시한다", () => {
-    renderWork();
-    const glitch = screen.getByTestId("glitch-text");
-    expect(glitch).toHaveTextContent(PROFILE.title);
-  });
-
-  it("LIFE 모드에서 LIFE_PROFILE.title을 일반 텍스트로 표시한다", () => {
-    renderLife();
-    expect(screen.getByText(LIFE_PROFILE.title)).toBeInTheDocument();
-    expect(screen.queryByTestId("glitch-text")).not.toBeInTheDocument();
-  });
-
-  it("WORK 모드에서 PROFILE.roles를 표시한다", () => {
-    renderWork();
-    PROFILE.roles.forEach((role) => {
-      expect(screen.getByText(role)).toBeInTheDocument();
+  describe("WORK 모드 — 시네마틱 인트로", () => {
+    it("intro phase(2초 이내)에서 프로젝트 제목이 보이지 않는다", () => {
+      renderWork();
+      PROJECTS.forEach((project) => {
+        expect(screen.queryByText(project.title)).not.toBeInTheDocument();
+      });
     });
-  });
 
-  it("LIFE 모드에서 LIFE_PROFILE.roles를 표시한다", () => {
-    renderLife();
-    LIFE_PROFILE.roles.forEach((role) => {
-      expect(screen.getByText(role)).toBeInTheDocument();
+    it("intro phase에서 터미널 프롬프트가 없다", () => {
+      renderWork();
+      expect(screen.queryByText("whoami")).not.toBeInTheDocument();
     });
+
+    it("intro phase에서 이름이 보이지 않는다", () => {
+      renderWork();
+      expect(screen.queryByText(PROFILE.name)).not.toBeInTheDocument();
+    });
+
+    it("2초 후 portfolio phase에서 프로젝트 제목 4개가 보인다", () => {
+      renderWork();
+      act(() => {
+        vi.advanceTimersByTime(2000);
+      });
+      PROJECTS.forEach((project) => {
+        expect(screen.getByText(project.title)).toBeInTheDocument();
+      });
+    });
+
+    it("reveal phase에서 이름과 소셜 링크가 보인다", () => {
+      renderWork();
+      // intro → portfolio
+      act(() => { vi.runAllTimers(); });
+      // portfolio → reveal
+      act(() => { vi.runAllTimers(); });
+      expect(screen.getByText(PROFILE.name)).toBeInTheDocument();
+      expect(screen.getByLabelText("GitHub")).toBeInTheDocument();
+      expect(screen.getByLabelText("Telegram")).toBeInTheDocument();
+      expect(screen.getByLabelText("LinkedIn")).toBeInTheDocument();
+    });
+
+    it("reveal phase에서 스크롤 인디케이터가 보인다", () => {
+      renderWork();
+      act(() => { vi.runAllTimers(); });
+      act(() => { vi.runAllTimers(); });
+      const scrollLink = screen.getByText("scroll").closest("a");
+      expect(scrollLink).toHaveAttribute("href", "#about");
+    });
+
   });
 
-  it("소셜 링크 3개를 렌더링한다", () => {
-    renderWork();
-    expect(screen.getByLabelText("GitHub")).toBeInTheDocument();
-    expect(screen.getByLabelText("Telegram")).toBeInTheDocument();
-    expect(screen.getByLabelText("LinkedIn")).toBeInTheDocument();
-  });
+  // === LIFE 모드: 기존 동작 유지 ===
 
-  it("WORK 모드에서 스크롤 링크가 #about이다", () => {
-    renderWork();
-    const scrollLink = screen.getByText("scroll").closest("a");
-    expect(scrollLink).toHaveAttribute("href", "#about");
-  });
+  describe("LIFE 모드 — 기존 동작", () => {
+    it("LIFE 모드에서 터미널 프롬프트를 숨긴다", () => {
+      renderLife();
+      expect(screen.queryByText("whoami")).not.toBeInTheDocument();
+    });
 
-  it("LIFE 모드에서 스크롤 링크가 #hobbies이다", () => {
-    renderLife();
-    const scrollLink = screen.getByText("scroll").closest("a");
-    expect(scrollLink).toHaveAttribute("href", "#hobbies");
-  });
+    it("PROFILE.name을 표시한다", () => {
+      renderLife();
+      expect(screen.getByText(PROFILE.name)).toBeInTheDocument();
+    });
 
-  it("data-bg 속성으로 배경 타입을 설정한다", () => {
-    const { container, unmount } = renderWork();
-    expect(container.querySelector("[data-bg='matrix']")).toBeInTheDocument();
-    unmount();
+    it("LIFE 모드에서 LIFE_PROFILE.title을 일반 텍스트로 표시한다", () => {
+      renderLife();
+      expect(screen.getByText(LIFE_PROFILE.title)).toBeInTheDocument();
+      expect(screen.queryByTestId("glitch-text")).not.toBeInTheDocument();
+    });
 
-    const { container: lifeContainer } = renderLife();
-    expect(lifeContainer.querySelector("[data-bg='video']")).toBeInTheDocument();
+    it("LIFE 모드에서 LIFE_PROFILE.roles를 표시한다", () => {
+      renderLife();
+      LIFE_PROFILE.roles.forEach((role) => {
+        expect(screen.getByText(role)).toBeInTheDocument();
+      });
+    });
+
+    it("소셜 링크 3개를 렌더링한다", () => {
+      renderLife();
+      expect(screen.getByLabelText("GitHub")).toBeInTheDocument();
+      expect(screen.getByLabelText("Telegram")).toBeInTheDocument();
+      expect(screen.getByLabelText("LinkedIn")).toBeInTheDocument();
+    });
+
+    it("LIFE 모드에서 스크롤 링크가 #hobbies이다", () => {
+      renderLife();
+      const scrollLink = screen.getByText("scroll").closest("a");
+      expect(scrollLink).toHaveAttribute("href", "#hobbies");
+    });
+
+    it("data-bg 속성으로 배경 타입을 설정한다", () => {
+      const { container } = renderLife();
+      expect(container.querySelector("[data-bg='video']")).toBeInTheDocument();
+    });
   });
 });

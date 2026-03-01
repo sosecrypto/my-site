@@ -101,3 +101,13 @@ export interface Skill {
 }
 
 export type SkillCategory = "language" | "framework" | "tool" | "blockchain";
+
+export type CapabilityCategory = "analysis" | "product" | "content" | "ai";
+
+export interface Capability {
+  icon: string;
+  title: string;
+  description: string;
+  tools: string[];
+  category: CapabilityCategory;
+}

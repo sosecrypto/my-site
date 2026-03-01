@@ -1,12 +1,13 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Terminal, Menu, X } from "lucide-react";
+import { Terminal, Menu, X, Volume2, VolumeOff } from "lucide-react";
 import { NAV_LINKS, LIFE_NAV_LINKS } from "@/lib/constants";
 import { useViewMode } from "@/hooks/useViewMode";
 import { useLifeWork } from "@/hooks/useLifeWork";
 import ThemeToggle from "./ThemeToggle";
 import LifeWorkToggle from "@/components/home/life-work-toggle";
+import { useSound } from "@/hooks/useSound";
 
 function MagneticLink({
   children,
@@ -52,6 +53,7 @@ function MagneticLink({
 export default function Navbar() {
   const { isCli, toggleMode } = useViewMode();
   const { mode } = useLifeWork();
+  const { isMuted, toggleMute } = useSound();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -121,6 +123,16 @@ export default function Navbar() {
           </button>
 
           <ThemeToggle />
+
+          <button
+            onClick={toggleMute}
+            className="relative w-9 h-9 flex items-center justify-center rounded-lg
+              text-text-secondary hover:text-accent-cyan
+              hover:bg-bg-secondary transition-all duration-200"
+            aria-label={isMuted ? "소리 켜기" : "소리 끄기"}
+          >
+            {isMuted ? <VolumeOff size={18} /> : <Volume2 size={18} />}
+          </button>
 
           {/* Mobile hamburger */}
           {!isCli && (

@@ -62,9 +62,9 @@ export default function HomeClient({ recentPosts }: HomeClientProps) {
                   exit="exit"
                 >
                   <AboutSection />
-                  <SkillsSection />
-                  <CareerTimeline />
                   <ProjectsSection />
+                  <CareerTimeline />
+                  <SkillsSection />
                   <BlogPreview posts={recentPosts} />
                   <ContactSection />
                 </motion.div>

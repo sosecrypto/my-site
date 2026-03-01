@@ -1,15 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Mail, Github, Send, Linkedin, Download } from "lucide-react";
+import { Send, Linkedin } from "lucide-react";
 import { PROFILE } from "@/lib/constants";
 import SectionHeader from "@/components/layout/SectionHeader";
 import GlowCard from "@/components/ui/GlowCard";
 
-const SOCIALS = [
-  { icon: Github, href: PROFILE.links.github, label: "GitHub" },
-  { icon: Send, href: PROFILE.links.telegram, label: "Telegram" },
-  { icon: Linkedin, href: PROFILE.links.linkedin, label: "LinkedIn" },
+const CONTACTS = [
+  { icon: Send, href: PROFILE.links.telegram, label: "Telegram", handle: "@sose_crypto" },
+  { icon: Linkedin, href: PROFILE.links.linkedin, label: "LinkedIn", handle: "LinkedIn" },
 ];
 
 export default function ContactSection() {
@@ -25,43 +24,25 @@ export default function ContactSection() {
         className="max-w-md mx-auto"
       >
         <GlowCard className="text-center">
-          <Mail size={32} className="mx-auto mb-4 text-accent-cyan" />
+          <Send size={32} className="mx-auto mb-4 text-accent-cyan" />
           <p className="text-text-secondary mb-4 text-sm leading-relaxed">
             새로운 프로젝트, 흥미로운 아이디어, 혹은 그냥 커피 한 잔 —<br />
             어떤 이유든 좋습니다. 편하게 연락 주세요.
           </p>
-          <div className="flex flex-col sm:flex-row items-center gap-3">
-            <a
-              href={`mailto:${PROFILE.email}`}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg font-mono text-sm
-                bg-accent-cyan text-bg-primary hover:opacity-90 transition-opacity"
-            >
-              <Mail size={16} />
-              {PROFILE.email}
-            </a>
-            <a
-              href="/resume/resume.pdf"
-              download
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg font-mono text-sm
-                border border-accent-cyan text-accent-cyan hover:bg-accent-cyan/10 transition-colors"
-            >
-              <Download size={16} />
-              CV 다운로드
-            </a>
-          </div>
 
-          {/* Social icons */}
-          <div className="flex items-center justify-center gap-4 mt-6 pt-4 border-t border-border">
-            {SOCIALS.map(({ icon: Icon, href, label }) => (
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
+            {CONTACTS.map(({ icon: Icon, href, label, handle }) => (
               <a
                 key={label}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-text-secondary hover:text-accent-cyan transition-colors"
+                className="inline-flex items-center gap-2 px-6 py-2.5 rounded-lg font-mono text-sm
+                  bg-accent-cyan text-bg-primary hover:opacity-90 transition-opacity"
                 aria-label={label}
               >
-                <Icon size={18} />
+                <Icon size={16} />
+                {handle}
               </a>
             ))}
           </div>

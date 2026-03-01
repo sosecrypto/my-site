@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import SkillsSection from "./SkillsSection";
-import { SKILLS } from "@/lib/constants";
+import { CAPABILITIES } from "@/lib/constants";
 
 vi.mock("framer-motion", () => ({
   motion: {
@@ -29,11 +29,12 @@ describe("SkillsSection", () => {
     expect(document.getElementById("skills")).toBeInTheDocument();
   });
 
-  it("전체 SKILLS를 렌더링한다", () => {
+  it("전체 CAPABILITIES를 렌더링한다", () => {
     render(<SkillsSection />);
 
-    SKILLS.forEach((skill) => {
-      expect(screen.getByText(skill.name)).toBeInTheDocument();
+    CAPABILITIES.forEach((cap) => {
+      expect(screen.getByText(cap.title)).toBeInTheDocument();
+      expect(screen.getByText(cap.description)).toBeInTheDocument();
     });
   });
 
@@ -41,36 +42,37 @@ describe("SkillsSection", () => {
     render(<SkillsSection />);
 
     expect(screen.getByText("All")).toBeInTheDocument();
-    expect(screen.getByText("Languages")).toBeInTheDocument();
-    expect(screen.getByText("Frameworks")).toBeInTheDocument();
-    expect(screen.getByText("Tools")).toBeInTheDocument();
-    expect(screen.getByText("Blockchain")).toBeInTheDocument();
+    expect(screen.getByText("Analysis")).toBeInTheDocument();
+    expect(screen.getByText("Product")).toBeInTheDocument();
+    expect(screen.getByText("Content")).toBeInTheDocument();
+    expect(screen.getByText("AI")).toBeInTheDocument();
   });
 
-  it("Languages 필터 클릭 시 language 카테고리만 표시한다", async () => {
+  it("Analysis 필터 클릭 시 analysis 카테고리만 표시한다", async () => {
     const user = userEvent.setup();
     render(<SkillsSection />);
 
-    await user.click(screen.getByText("Languages"));
+    await user.click(screen.getByText("Analysis"));
 
-    const languageSkills = SKILLS.filter((s) => s.category === "language");
-    const nonLanguageSkills = SKILLS.filter((s) => s.category !== "language");
+    const analysisCaps = CAPABILITIES.filter((c) => c.category === "analysis");
+    const nonAnalysisCaps = CAPABILITIES.filter((c) => c.category !== "analysis");
 
-    languageSkills.forEach((skill) => {
-      expect(screen.getByText(skill.name)).toBeInTheDocument();
+    analysisCaps.forEach((cap) => {
+      expect(screen.getByText(cap.title)).toBeInTheDocument();
     });
 
-    nonLanguageSkills.forEach((skill) => {
-      expect(screen.queryByText(skill.name)).not.toBeInTheDocument();
+    nonAnalysisCaps.forEach((cap) => {
+      expect(screen.queryByText(cap.title)).not.toBeInTheDocument();
     });
   });
 
-  it("스킬 레벨 퍼센트를 표시한다", () => {
+  it("도구 태그를 표시한다", () => {
     render(<SkillsSection />);
 
-    const uniqueLevels = [...new Set(SKILLS.map((s) => s.level))];
-    uniqueLevels.forEach((level) => {
-      expect(screen.getAllByText(`${level}%`).length).toBeGreaterThan(0);
+    CAPABILITIES.forEach((cap) => {
+      cap.tools.forEach((tool) => {
+        expect(screen.getByText(tool)).toBeInTheDocument();
+      });
     });
   });
 });

@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import ContactSection from "./ContactSection";
-import { PROFILE } from "@/lib/constants";
 
 vi.mock("framer-motion", () => ({
   motion: {
@@ -27,31 +26,17 @@ describe("ContactSection", () => {
     expect(document.getElementById("contact")).toBeInTheDocument();
   });
 
-  it("섹션 헤더를 렌더링한다", () => {
-    render(<ContactSection />);
-
-    const header = document.getElementById("contact");
-    expect(header?.querySelector("h2")).toBeInTheDocument();
-  });
-
   it("안내 문구를 표시한다", () => {
     render(<ContactSection />);
 
     expect(screen.getByText(/편하게 연락 주세요/)).toBeInTheDocument();
   });
 
-  it("이메일 CTA 링크를 표시한다", () => {
+  it("Telegram과 LinkedIn 버튼을 표시한다", () => {
     render(<ContactSection />);
 
-    const emailLink = screen.getByText(PROFILE.email);
-    expect(emailLink.closest("a")).toHaveAttribute("href", `mailto:${PROFILE.email}`);
-  });
-
-  it("소셜 아이콘 3개를 렌더링한다", () => {
-    render(<ContactSection />);
-
-    expect(screen.getByLabelText("GitHub")).toBeInTheDocument();
     expect(screen.getByLabelText("Telegram")).toBeInTheDocument();
+    expect(screen.getByText("@sose_crypto")).toBeInTheDocument();
     expect(screen.getByLabelText("LinkedIn")).toBeInTheDocument();
   });
 });
