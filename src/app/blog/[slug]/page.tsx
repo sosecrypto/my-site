@@ -4,6 +4,14 @@ import PostContent from "@/components/blog/PostContent";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { PROFILE } from "@/lib/constants";
+
+function safeJsonLd(obj: unknown): string {
+  return JSON.stringify(obj)
+    .replace(/</g, "\\u003c")
+    .replace(/>/g, "\\u003e")
+    .replace(/&/g, "\\u0026");
+}
 
 interface PostPageProps {
   params: Promise<{ slug: string }>;
@@ -35,8 +43,30 @@ export default async function PostPage({ params }: PostPageProps) {
 
   if (!post) notFound();
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.excerpt ?? post.content.slice(0, 150),
+    author: {
+      "@type": "Person",
+      name: PROFILE.name,
+      url: "https://shmksumsun.xyz",
+    },
+    datePublished: post.created_at,
+    dateModified: post.updated_at,
+    url: `https://shmksumsun.xyz/blog/${post.slug}`,
+    keywords: post.tags.join(", "),
+    inLanguage: "ko",
+  };
+
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(articleSchema) }}
+      />
+
       {/* Back link */}
       <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-8">
         <Link

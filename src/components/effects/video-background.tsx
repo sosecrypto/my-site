@@ -12,6 +12,7 @@ export default function VideoBackground() {
         muted
         loop
         playsInline
+        preload="auto"
         onCanPlay={() => setIsReady(true)}
         aria-label="히어로 섹션 배경 영상"
         className="w-full h-full object-cover scale-110 transition-opacity duration-[2s] ease-out"

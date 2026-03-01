@@ -5,6 +5,7 @@ import Providers from "./providers";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import CustomCursor from "@/components/layout/CustomCursor";
+import JsonLd from "@/components/seo/JsonLd";
 import "./globals.css";
 
 const pretendard = localFont({
@@ -51,6 +52,9 @@ export default function RootLayout({
       className={`${pretendard.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
+      <head>
+        <JsonLd />
+      </head>
       <body className="antialiased min-h-screen">
         <a
           href="#main-content"

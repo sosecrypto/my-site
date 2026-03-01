@@ -57,11 +57,17 @@ export default function Hero() {
       <div
         className="absolute inset-0 z-[1]"
         style={{
-          background: [
-            "radial-gradient(ellipse at 30% 50%, rgba(251, 146, 60, 0.08) 0%, transparent 50%)",
-            "radial-gradient(ellipse at 70% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 50%)",
-            `radial-gradient(ellipse at center, transparent 40%, var(--bg-primary) ${bgType === "video" ? "90%" : "80%"})`,
-          ].join(", "),
+          background: isLife
+            ? [
+                "radial-gradient(ellipse at 30% 50%, rgba(212, 160, 53, 0.1) 0%, transparent 50%)",
+                "radial-gradient(ellipse at 70% 50%, rgba(245, 158, 11, 0.08) 0%, transparent 50%)",
+                "radial-gradient(ellipse at center, transparent 40%, var(--bg-primary) 90%)",
+              ].join(", ")
+            : [
+                "radial-gradient(ellipse at 30% 50%, rgba(251, 146, 60, 0.08) 0%, transparent 50%)",
+                "radial-gradient(ellipse at 70% 50%, rgba(34, 211, 238, 0.08) 0%, transparent 50%)",
+                "radial-gradient(ellipse at center, transparent 40%, var(--bg-primary) 80%)",
+              ].join(", "),
         }}
       />
 

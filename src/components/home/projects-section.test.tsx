@@ -9,15 +9,16 @@ vi.mock("framer-motion", () => ({
       children,
       ...props
     }: React.HTMLAttributes<HTMLDivElement> & Record<string, unknown>) => {
-      const { variants, initial, whileInView, viewport, transition, ...rest } =
+      const { variants, initial, animate, whileInView, viewport, transition, ...rest } =
         props as Record<string, unknown>;
-      void variants; void initial; void whileInView; void viewport; void transition;
+      void variants; void initial; void animate; void whileInView; void viewport; void transition;
       const htmlProps = Object.fromEntries(
         Object.entries(rest).filter(([, v]) => typeof v !== "object" || v === null)
       );
       return <div {...htmlProps}>{children}</div>;
     },
   },
+  AnimatePresence: ({ children }: { children: React.ReactNode }) => <>{children}</>,
 }));
 
 vi.mock("next/image", () => ({

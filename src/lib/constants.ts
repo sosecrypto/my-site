@@ -1,4 +1,4 @@
-import type { CareerEntry, Keyword, ProjectCard, Hobby, DailyRoutine, Quote, Book } from "@/types";
+import type { CareerEntry, Keyword, ProjectCard, ProjectCategory, Hobby, DailyRoutine, Quote, Book, MockPost, Skill, SkillCategory } from "@/types";
 
 export const PROFILE = {
   name: "엄상현",
@@ -36,6 +36,7 @@ export const PROFILE = {
       role: "Core Team",
       type: "재택근무",
       detail: "이더리움과 관련한 콘텐츠를 한국에 전달하는 그룹. https://t.me/thetickeriseth",
+      achievements: ["이더리움 생태계 한국어 콘텐츠 기획·번역", "텔레그램 커뮤니티 운영"],
     },
     {
       hash: "b2d8c44",
@@ -46,6 +47,7 @@ export const PROFILE = {
       role: "Growth Lead",
       type: "정규직",
       detail: "디지털 에셋 분석 및 성장 전략",
+      achievements: ["온체인 데이터 분석 파이프라인 구축", "주요 프로젝트 성장 전략 리드", "팀 리드 역할 수행"],
     },
     {
       hash: "e5a1b09",
@@ -56,6 +58,7 @@ export const PROFILE = {
       role: "신사업 전략",
       type: "정규직",
       detail: "3년 7개월간 신사업 전략 수립 및 실행",
+      achievements: ["블록체인 신사업 전략 수립", "파트너십 및 투자 검토"],
     },
     {
       hash: "f8c2d37",
@@ -90,6 +93,13 @@ export const PROFILE = {
   ] satisfies CareerEntry[],
 } as const;
 
+export const PROJECT_CATEGORIES: { key: ProjectCategory | "all"; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "ai", label: "AI" },
+  { key: "web3", label: "Web3" },
+  { key: "fullstack", label: "Full Stack" },
+];
+
 export const PROJECTS: ProjectCard[] = [
   {
     title: "AI Book",
@@ -98,6 +108,11 @@ export const PROJECTS: ProjectCard[] = [
     github: "https://github.com/sumsun-dev/ai-book",
     live: "https://ai-book-delta-navy.vercel.app",
     thumbnail: "/projects/ai-book.png",
+    category: "ai",
+    role: "풀스택 개발",
+    period: "2025.12 ~ 2026.01",
+    impact: "멀티 에이전트 기반 책 집필 자동화",
+    highlights: ["Claude API 멀티 에이전트 아키텍처", "실시간 집필 진행 상황 스트리밍"],
   },
   {
     title: "AI Chef",
@@ -105,6 +120,11 @@ export const PROJECTS: ProjectCard[] = [
     tags: ["Flutter", "Next.js", "Gemini", "Supabase"],
     github: "https://github.com/sumsun-dev/ai-chef",
     thumbnail: "/projects/ai-chef.png",
+    category: "ai",
+    role: "풀스택 개발",
+    period: "2025.10 ~ 2025.11",
+    impact: "Gemini Vision으로 식재료 인식 & 레시피 추천",
+    highlights: ["Flutter 크로스플랫폼 앱", "Gemini Vision API 이미지 분석"],
   },
   {
     title: "Talk With Legends",
@@ -112,6 +132,11 @@ export const PROJECTS: ProjectCard[] = [
     tags: ["Next.js", "Claude API", "RAG", "pgvector"],
     github: "https://github.com/sumsun-dev/talk-with",
     thumbnail: "/projects/talk-with.png",
+    category: "ai",
+    role: "풀스택 개발",
+    period: "2025.08 ~ 진행중",
+    impact: "RAG + 페르소나 기반 대화형 AI",
+    highlights: ["pgvector 벡터 검색", "페르소나별 응답 톤 커스터마이징"],
   },
   {
     title: "The Ticker is ETH",
@@ -120,6 +145,11 @@ export const PROJECTS: ProjectCard[] = [
     github: "https://github.com/sumsun-dev/The-Ticker-is-ETH",
     live: "https://the-ticker-is-eth-pi.vercel.app",
     thumbnail: "/projects/the-ticker-is-eth.png",
+    category: "web3",
+    role: "프론트엔드 개발",
+    period: "2024.11 ~ 진행중",
+    impact: "이더리움 생태계 한국어 콘텐츠 허브",
+    highlights: ["뉴스레터 자동 발행 시스템", "텔레그램 커뮤니티 연동"],
   },
 ];
 
@@ -127,6 +157,7 @@ export const CATEGORIES = ["전체", "생각", "기술", "활동", "기타"] as 
 
 export const NAV_LINKS = [
   { label: "about", href: "#about" },
+  { label: "skills", href: "#skills" },
   { label: "projects", href: "#projects" },
   { label: "career", href: "#career" },
   { label: "blog", href: "#blog" },
@@ -185,3 +216,36 @@ export const LIFE_NAV_LINKS = [
   { label: "philosophy", href: "#philosophy" },
   { label: "reading", href: "#reading" },
 ] as const;
+
+export const SKILL_CATEGORIES: { key: SkillCategory | "all"; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "language", label: "Languages" },
+  { key: "framework", label: "Frameworks" },
+  { key: "tool", label: "Tools" },
+  { key: "blockchain", label: "Blockchain" },
+];
+
+export const SKILLS: Skill[] = [
+  { name: "TypeScript", level: 85, category: "language" },
+  { name: "Python", level: 75, category: "language" },
+  { name: "JavaScript", level: 90, category: "language" },
+  { name: "SQL", level: 70, category: "language" },
+  { name: "Next.js", level: 85, category: "framework" },
+  { name: "React", level: 85, category: "framework" },
+  { name: "Flutter", level: 60, category: "framework" },
+  { name: "Tailwind CSS", level: 90, category: "framework" },
+  { name: "Claude API", level: 85, category: "tool" },
+  { name: "Supabase", level: 80, category: "tool" },
+  { name: "Git", level: 85, category: "tool" },
+  { name: "Docker", level: 60, category: "tool" },
+  { name: "Ethereum", level: 80, category: "blockchain" },
+  { name: "Solidity", level: 55, category: "blockchain" },
+  { name: "DeFi", level: 85, category: "blockchain" },
+  { name: "On-chain Analysis", level: 80, category: "blockchain" },
+];
+
+export const MOCK_POSTS: MockPost[] = [
+  { date: "2026-02-15", category: "기술", title: "AI 시대의 개발자 역할 변화", slug: "#" },
+  { date: "2026-02-10", category: "생각", title: "Web3와 탈중앙화의 미래", slug: "#" },
+  { date: "2026-01-28", category: "활동", title: "DeSpread 팀과 함께한 1년", slug: "#" },
+];

@@ -10,6 +10,7 @@ export default function MatrixRain() {
   const [init, setInit] = useState(false);
   const { resolvedTheme } = useTheme();
   const isDark = resolvedTheme === "dark";
+  const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   useEffect(() => {
     initParticlesEngine(async (engine) => {
@@ -23,7 +24,7 @@ export default function MatrixRain() {
       fpsLimit: 60,
       particles: {
         number: {
-          value: 80,
+          value: isMobile ? 30 : 80,
           density: { enable: true, width: 1920, height: 1080 },
         },
         color: {
@@ -77,7 +78,7 @@ export default function MatrixRain() {
       },
       detectRetina: true,
     }),
-    [isDark]
+    [isDark, isMobile]
   );
 
   if (!init) return null;

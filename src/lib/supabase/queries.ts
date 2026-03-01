@@ -96,6 +96,34 @@ export async function getPostBySlug(slug: string): Promise<Post | null> {
   return data;
 }
 
+export async function searchPosts(query: string): Promise<Post[]> {
+  if (!query.trim()) return [];
+
+  if (!isSupabaseConfigured()) {
+    const lowerQuery = query.toLowerCase();
+    return MOCK_POSTS.filter(
+      (p) =>
+        p.title.toLowerCase().includes(lowerQuery) ||
+        p.content.toLowerCase().includes(lowerQuery) ||
+        p.tags.some((t) => t.toLowerCase().includes(lowerQuery))
+    );
+  }
+
+  const { createClient } = await import("./server");
+  const supabase = await createClient();
+
+  const { data, error } = await supabase
+    .from("posts")
+    .select("*")
+    .eq("published", true)
+    .or(`title.ilike.%${query}%,content.ilike.%${query}%`)
+    .order("created_at", { ascending: false })
+    .limit(20);
+
+  if (error) throw error;
+  return data ?? [];
+}
+
 export async function getRecentPosts(limit = 5): Promise<Post[]> {
   if (!isSupabaseConfigured()) {
     return MOCK_POSTS.slice(0, limit);

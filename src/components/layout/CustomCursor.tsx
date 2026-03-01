@@ -103,13 +103,15 @@ export default function CustomCursor() {
       }
 
       const target = e.target as HTMLElement;
-      const computed = window.getComputedStyle(target);
       setIsPointer(
-        computed.cursor === "pointer" ||
-          target.tagName === "A" ||
+        target.tagName === "A" ||
           target.tagName === "BUTTON" ||
+          target.tagName === "INPUT" ||
+          target.tagName === "SELECT" ||
+          target.tagName === "TEXTAREA" ||
           target.closest("a") !== null ||
-          target.closest("button") !== null
+          target.closest("button") !== null ||
+          target.closest("[role='button']") !== null
       );
 
       const newZone = getZone(target, e.clientY, modeRef.current);

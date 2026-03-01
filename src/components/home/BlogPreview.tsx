@@ -3,13 +3,9 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import type { Post } from "@/types";
+import { MOCK_POSTS } from "@/lib/constants";
 import SectionHeader from "@/components/layout/SectionHeader";
-
-const MOCK_POSTS = [
-  { date: "2026-02-15", category: "기술", title: "AI 시대의 개발자 역할 변화", slug: "#" },
-  { date: "2026-02-10", category: "생각", title: "Web3와 탈중앙화의 미래", slug: "#" },
-  { date: "2026-01-28", category: "활동", title: "DeSpread 팀과 함께한 1년", slug: "#" },
-];
 
 const lineVariants = {
   hidden: { opacity: 0, x: -10 },
@@ -20,13 +16,26 @@ const lineVariants = {
   }),
 };
 
-export default function BlogPreview() {
+interface BlogPreviewProps {
+  posts?: Post[];
+}
+
+export default function BlogPreview({ posts }: BlogPreviewProps) {
+  const displayPosts = posts && posts.length > 0
+    ? posts.map((p) => ({
+        date: p.created_at.slice(0, 10),
+        category: p.category,
+        title: p.title,
+        slug: p.slug,
+      }))
+    : MOCK_POSTS;
+
   return (
     <section className="py-20">
       <SectionHeader command="tail -f blog.log" id="blog" />
 
       <div className="space-y-2 font-mono text-sm">
-        {MOCK_POSTS.map((post, i) => (
+        {displayPosts.map((post, i) => (
           <motion.a
             key={post.title}
             href={`/blog/${post.slug}`}

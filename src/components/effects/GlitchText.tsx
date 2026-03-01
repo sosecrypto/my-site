@@ -1,5 +1,3 @@
-"use client";
-
 interface GlitchTextProps {
   text: string;
   className?: string;

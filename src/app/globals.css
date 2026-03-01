@@ -65,14 +65,14 @@
 [data-life-mode="true"] {
   --bg-primary: #f0ebe0;
   --bg-secondary: #f5efe4;
-  --text-primary: #4a3c2a;
-  --text-secondary: #7a6950;
-  --accent-cyan: #b8892e;
-  --accent-green: #6d9e48;
-  --accent-amber: #b06828;
-  --accent-rose: #b05050;
+  --text-primary: #3d3020;
+  --text-secondary: #6b5a3e;
+  --accent-cyan: #9a7420;
+  --accent-green: #4d7c2a;
+  --accent-amber: #9a5518;
+  --accent-rose: #9a3838;
   --border-color: #d8cdb5;
-  --glow-color: rgba(184, 137, 46, 0.2);
+  --glow-color: rgba(154, 116, 32, 0.2);
   --card-bg: rgba(245, 239, 228, 0.85);
   --navbar-bg: rgba(240, 235, 224, 0.85);
 }
@@ -237,6 +237,24 @@ body {
   animation-delay: 0.1s;
   clip-path: inset(50% 0 0 0);
   transform: translate(2px, 1px);
+}
+
+/* GlitchText: 터치 디바이스에서 자동 애니메이션 */
+@media (hover: none) {
+  .glitch::before {
+    opacity: 0.5;
+    color: var(--accent-cyan);
+    animation: glitch 3s infinite;
+    clip-path: inset(0 0 50% 0);
+    transform: translate(-2px, -1px);
+  }
+  .glitch::after {
+    opacity: 0.5;
+    color: var(--accent-rose);
+    animation: glitch 3s infinite 0.1s;
+    clip-path: inset(50% 0 0 0);
+    transform: translate(2px, 1px);
+  }
 }
 
 /* --- Animated Gradient Border --- */

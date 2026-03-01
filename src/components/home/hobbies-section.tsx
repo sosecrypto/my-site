@@ -30,9 +30,20 @@ export default function HobbiesSection() {
         className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
       >
         {LIFE_PROFILE.hobbies.map((hobby) => (
-          <motion.div key={hobby.title} variants={item}>
+          <motion.div
+            key={hobby.title}
+            variants={item}
+            whileHover={{ y: -4 }}
+            transition={{ type: "spring", stiffness: 300 }}
+          >
             <GlowCard className="h-full">
-              <div className="text-3xl mb-3">{hobby.icon}</div>
+              <motion.div
+                className="text-3xl mb-3 inline-block"
+                whileHover={{ scale: 1.3, rotate: 10 }}
+                transition={{ type: "spring", stiffness: 400 }}
+              >
+                {hobby.icon}
+              </motion.div>
               <h3 className="font-mono text-sm font-bold text-accent-amber mb-2">
                 {hobby.title}
               </h3>

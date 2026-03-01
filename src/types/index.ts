@@ -21,6 +21,7 @@ export interface CareerEntry {
   role: string;
   type: string;
   detail: string;
+  achievements?: string[];
 }
 
 export interface Keyword {
@@ -40,6 +41,8 @@ export interface Project {
   created_at: string;
 }
 
+export type ProjectCategory = "ai" | "web3" | "fullstack";
+
 export interface ProjectCard {
   title: string;
   description: string;
@@ -47,6 +50,11 @@ export interface ProjectCard {
   github: string;
   live?: string;
   thumbnail: string;
+  category?: ProjectCategory;
+  role?: string;
+  impact?: string;
+  period?: string;
+  highlights?: string[];
 }
 
 export interface Hobby {
@@ -75,3 +83,18 @@ export interface Book {
   review?: string;
   rating?: 1 | 2 | 3 | 4 | 5;
 }
+
+export interface MockPost {
+  date: string;
+  category: string;
+  title: string;
+  slug: string;
+}
+
+export interface Skill {
+  name: string;
+  level: number;
+  category: SkillCategory;
+}
+
+export type SkillCategory = "language" | "framework" | "tool" | "blockchain";
