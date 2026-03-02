@@ -161,9 +161,8 @@ export const CATEGORIES = ["전체", "생각", "기술", "활동", "기타"] as 
 
 export const NAV_LINKS = [
   { label: "about", href: "#about" },
-  { label: "projects", href: "#projects" },
+  { label: "portfolio", href: "#portfolio" },
   { label: "career", href: "#career" },
-  { label: "skills", href: "#skills" },
   { label: "blog", href: "#blog" },
   { label: "contact", href: "#contact" },
 ] as const;
@@ -243,6 +242,7 @@ export const CAPABILITIES: Capability[] = [
     description: "아이디어부터 배포까지 혼자 완성하는 프로덕트 개발",
     tools: ["Next.js", "React", "Supabase", "Tailwind"],
     category: "product",
+    projectIds: ["AI Book", "The Ticker is ETH"],
   },
   {
     icon: "✍️",
@@ -250,6 +250,7 @@ export const CAPABILITIES: Capability[] = [
     description: "복잡한 기술을 누구나 이해할 수 있는 콘텐츠로 변환",
     tools: ["뉴스레터", "블로그", "SNS"],
     category: "content",
+    projectIds: ["The Ticker is ETH"],
   },
   {
     icon: "🤖",
@@ -257,6 +258,7 @@ export const CAPABILITIES: Capability[] = [
     description: "멀티 에이전트 파이프라인 설계 및 AI 기반 서비스 구축",
     tools: ["Claude API", "RAG", "pgvector"],
     category: "ai",
+    projectIds: ["AI Book", "Talk With Legends"],
   },
   {
     icon: "📈",
@@ -271,6 +273,7 @@ export const CAPABILITIES: Capability[] = [
     description: "모바일 + 웹 크로스플랫폼 서비스 구현",
     tools: ["Flutter", "React Native"],
     category: "product",
+    projectIds: ["AI Chef"],
   },
 ];
 

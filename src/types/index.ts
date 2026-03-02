@@ -110,4 +110,5 @@ export interface Capability {
   description: string;
   tools: string[];
   category: CapabilityCategory;
+  projectIds?: string[];
 }

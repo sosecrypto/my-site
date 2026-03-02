@@ -5,9 +5,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { Post } from "@/types";
 import Hero from "@/components/home/Hero";
 import AboutSection from "@/components/home/AboutSection";
-import SkillsSection from "@/components/home/SkillsSection";
+import PortfolioSection from "@/components/home/PortfolioSection";
 import CareerTimeline from "@/components/home/CareerTimeline";
-import ProjectsSection from "@/components/home/ProjectsSection";
 import BlogPreview from "@/components/home/BlogPreview";
 import ContactSection from "@/components/home/ContactSection";
 import HobbiesSection from "@/components/home/hobbies-section";
@@ -62,9 +61,8 @@ export default function HomeClient({ recentPosts }: HomeClientProps) {
                   exit="exit"
                 >
                   <AboutSection />
-                  <ProjectsSection />
+                  <PortfolioSection />
                   <CareerTimeline />
-                  <SkillsSection />
                   <BlogPreview posts={recentPosts} />
                   <ContactSection />
                 </motion.div>
